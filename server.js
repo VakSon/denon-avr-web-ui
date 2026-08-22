@@ -21,8 +21,13 @@ function settle(dev, ms = 350) {
   });
 }
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const STORE_FILE = path.join(__dirname, 'receivers.json');
+// Where the receiver list is persisted. Override with DATA_DIR to point it at a
+// mounted volume (e.g. in Docker) so it survives container restarts.
+const DATA_DIR = process.env.DATA_DIR || __dirname;
+const STORE_FILE = path.join(DATA_DIR, 'receivers.json');
 const PORT = process.env.PORT || 3000;
+
+fs.mkdirSync(DATA_DIR, { recursive: true });
 
 // ---- Receiver registry (persisted to receivers.json) ----
 const devices = new Map(); // id -> DenonDevice

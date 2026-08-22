@@ -48,6 +48,40 @@ node server.js
 
 Then open <http://localhost:3000>. Change the port with `PORT=8080 node server.js`.
 
+## Run with Docker
+
+The app is packaged as a small, non-root image. The container reaches your
+receiver on the LAN via normal bridge networking; the receiver list is kept in a
+named volume so it survives restarts.
+
+```bash
+# build the image
+docker build -t denon-web-ui .
+
+# run it (UI on http://<server-ip>:3000)
+docker run -d --name denon-ui \
+  -p 3000:3000 \
+  -v denon-data:/data \
+  --restart unless-stopped \
+  denon-web-ui
+```
+
+Or with Compose:
+
+```bash
+docker compose up -d
+```
+
+Notes:
+- The receiver list lives in the `denon-data` volume (mounted at `/data`, via the
+  `DATA_DIR` env var). Removing the container keeps it; `docker volume rm
+  denon-data` wipes it.
+- Bridge networking is enough for the container to reach a receiver on your LAN.
+  If your receiver is on a different subnet and unreachable, run with
+  `--network host` instead (Linux only) and drop the `-p` flag.
+- Remember the receiver allows only **one** control connection at a time — don't
+  run the container and a bare `node server.js` against the same receiver at once.
+
 ## Usage
 
 1. Click **+ Add receiver** and enter its IP address (e.g. `192.168.1.50`).

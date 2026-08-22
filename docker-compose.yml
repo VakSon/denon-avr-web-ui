@@ -1,0 +1,13 @@
+services:
+  denon-web-ui:
+    build: .
+    # or, once published: image: ghcr.io/vakson/denon-avr-web-ui:latest
+    container_name: denon-ui
+    ports:
+      - "3000:3000"        # host:container — open http://<server-ip>:3000
+    volumes:
+      - denon-data:/data   # persists receivers.json across restarts
+    restart: unless-stopped
+
+volumes:
+  denon-data:
