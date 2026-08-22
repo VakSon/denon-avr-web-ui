@@ -1,0 +1,14 @@
+{
+  "name": "denon-web-ui",
+  "version": "1.0.0",
+  "description": "Simple web UI to control Denon AVR receivers over their telnet control protocol.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

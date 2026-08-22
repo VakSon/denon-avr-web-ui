@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Denon Control</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Denon<span>Control</span></h1>
+    <button id="addBtn" class="ghost">+ Add receiver</button>
+  </header>
+
+  <main id="app">
+    <aside class="sidebar">
+      <h2>Receivers</h2>
+      <ul id="deviceList"></ul>
+      <p id="noDevices" class="hint">No receivers yet. Click <b>+ Add receiver</b> and enter its IP address.</p>
+    </aside>
+
+    <section id="panel" class="panel">
+      <div id="emptyState" class="empty">
+        <p>Select a receiver on the left, or add one to get started.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add-receiver dialog -->
+  <dialog id="addDialog">
+    <form method="dialog" id="addForm">
+      <h3>Add a Denon receiver</h3>
+      <label>IP address or hostname
+        <input name="host" placeholder="192.168.1.50" required autocomplete="off" />
+      </label>
+      <label>Name (optional)
+        <input name="name" placeholder="Living room" autocomplete="off" />
+      </label>
+      <p class="hint">The receiver must be on and reachable on TCP port 23 (network control enabled in its settings).</p>
+      <menu>
+        <button value="cancel" class="ghost" type="button" id="addCancel">Cancel</button>
+        <button value="ok" class="primary">Add</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
